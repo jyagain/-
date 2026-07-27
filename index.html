@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오답쌍둥이 포털 | Twin Problem Portal</title>
+  <meta name="description" content="AI 규칙 기반 수학 오답 분석 및 쌍둥이 문제 생성 포털">
+  <!-- CSS 스타일시트 로드 -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- 1. 왼쪽 메뉴 (사이드바) -->
+    <aside class="sidebar">
+      <div class="logo-section">
+        <h1>
+          <!-- Sparkles 아이콘 -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:24px;height:24px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l-.813-5.096L3 15l5.096-.813L9 9l.813 5.096L15 15l-5.187.904zM18 7.5l-.5 2.5-.5-2.5-2.5-.5 2.5-.5.5-2.5.5 2.5 2.5.5-2.5.5zM21 12l-.25 1.25-1.25.25 1.25.25.25 1.25.25-1.25 1.25-.25-1.25-.25L21 12z" />
+          </svg>
+          <span>오답쌍둥이 포털</span>
+        </h1>
+        <div class="subtitle">AI Twin Problem Generator</div>
+      </div>
+      
+      <nav class="nav-links">
+        <a href="#" class="nav-item active" data-target="view-entry">
+          <!-- 문서 입력 아이콘 -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+          </svg>
+          <span>오답 입력</span>
+        </a>
+        
+        <a href="#" class="nav-item" data-target="view-generate">
+          <!-- 퍼즐/생성 아이콘 -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.656 48.656 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7C4.547 9.547 4.5 10.768 4.5 12s.047 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.092-1.209.138-2.43.138-3.662z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 10.5l3 3 6-6" />
+          </svg>
+          <span>쌍둥이 문제 생성</span>
+        </a>
+        
+        <a href="#" class="nav-item" data-target="view-saved">
+          <!-- 북마크/저장 아이콘 -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+          </svg>
+          <span>저장한 문제</span>
+        </a>
+        
+        <a href="#" class="nav-item" data-target="view-stats">
+          <!-- 차트 아이콘 -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v5.25c0 .621-.504 1.125-1.125 1.125h-2.25A1.125 1.125 0 013 18.375v-5.25zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125v-9.75zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v14.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          <span>학습 통계</span>
+        </a>
+        
+        <a href="#" class="nav-item" data-target="view-settings">
+          <!-- 톱니바퀴 아이콘 -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.43l-1.003.828c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.43l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.991l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.645-.869l.214-1.28z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>설정</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        © 2026 Twin Problem Portal
+      </div>
+    </aside>
+    
+    <!-- 2. 오른쪽 메인 작업 화면 -->
+    <div class="main-wrapper">
+      
+      <!-- 상단 헤더 영역 -->
+      <header class="top-header">
+        <button class="mobile-menu-btn" aria-label="메뉴 열기">
+          <!-- 햄버거 메뉴 아이콘 -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:24px;height:24px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+        
+        <div class="header-title-area">
+          <h2>Twin Problem Portal</h2>
+        </div>
+        
+        <div class="student-badge">
+          <!-- 학생 아이콘 -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>학생 (중등수학)</span>
+        </div>
+      </header>
+      
+      <main class="content-container">
+        
+        <!-- ========================================== -->
+        <!-- VIEW 1: 오답 입력 및 분석 -->
+        <!-- ========================================== -->
+        <section id="view-entry" class="view-section">
+          <div class="view-title-row">
+            <h3>오답 입력</h3>
+            <p>틀린 수학 문제를 기록하고 AI 분석을 통해 무엇이 문제였는지 진단받으세요.</p>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:20px;height:20px;color:var(--primary)">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              수학 오답 카드 작성
+            </div>
+            
+            <form id="entry-form" onsubmit="event.preventDefault();">
+              <div class="form-grid">
+                
+                <div class="form-group">
+                  <label for="subject">과목</label>
+                  <select id="subject" class="input-control">
+                    <option value="초등수학">초등수학</option>
+                    <option value="중등수학" selected>중등수학</option>
+                    <option value="고등수학">고등수학</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="grade">학년</label>
+                  <select id="grade" class="input-control">
+                    <!-- JS에서 동적 구성 -->
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="chapter">단원명</label>
+                  <input type="text" id="chapter" class="input-control" placeholder="예) 일차방정식, 비례식, 도형, 함수 등" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="difficulty">난이도</label>
+                  <div class="slider-container" style="margin-top:6px;">
+                    <input type="range" id="difficulty" class="difficulty-slider" min="1" max="5" value="3">
+                    <span id="difficulty-badge-text" class="difficulty-badge">3단계</span>
+                  </div>
+                </div>
+                
+                <div class="form-group full-width">
+                  <label for="originalText">원본 문제</label>
+                  <textarea id="originalText" class="input-control" placeholder="틀린 문제의 전체 텍스트를 적어주세요.&#10;예) x + 5 = 12일 때 x의 값을 구하시오." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="myAnswer">내가 작성한 오답</label>
+                  <textarea id="myAnswer" class="input-control" placeholder="본인이 적었던 답안을 적어주세요.&#10;예) x = 6"></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="correctAnswer">실제 정답</label>
+                  <textarea id="correctAnswer" class="input-control" placeholder="해설지의 실제 정답을 적어주세요.&#10;pdf 생성 및 정확한 변형을 돕습니다.&#10;예) x = 7"></textarea>
+                </div>
+                
+                <div class="form-group full-width">
+                  <label>틀린 이유 (복수 선택 가능)</label>
+                  <div class="checkbox-grid" style="margin-top:6px;">
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="reasons" value="계산실수"> 계산실수
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="reasons" value="공식암기 부족"> 공식암기 부족
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="reasons" value="개념 이해 부족"> 개념 이해 부족
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="reasons" value="문제 해석 실패"> 문제 해석 실패
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="reasons" value="단순 실수"> 단순 실수
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="reasons" value="기타"> 기타
+                    </label>
+                  </div>
+                </div>
+                
+              </div>
+              
+              <div class="btn-group">
+                <button type="button" id="btn-analyze" class="btn btn-primary">
+                  <!-- 분석 아이콘 -->
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:18px;height:18px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v11.962a3.75 3.75 0 11-7.5 0V3.104a3.75 3.75 0 017.5 0zM21.75 3.104v11.962a3.75 3.75 0 11-7.5 0V3.104a3.75 3.75 0 017.5 0z" />
+                  </svg>
+                  오답 분석 실행
+                </button>
+                <button type="button" id="btn-reset-form" class="btn btn-secondary">초기화</button>
+              </div>
+              
+              <div class="autosave-indicator">
+                <span class="dot" style="width:8px;height:8px;border-radius:50%;background-color:currentColor;display:inline-block;"></span>
+                <span id="autosave-text">작성 내용 대기 중</span>
+              </div>
+            </form>
+          </div>
+          
+          <!-- 오답 분석 결과 리포트 카드 (기본 숨김) -->
+          <div id="analysis-result-box" class="card analysis-card hidden">
+            <div class="card-title" style="color:var(--primary)">
+              <!-- 분석 완료 배지 -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:20px;height:20px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              규칙 기반 AI 오답 진단 리포트
+            </div>
+            
+            <div class="analysis-result-grid">
+              <div class="analysis-item">
+                <div class="analysis-label">학습 개념</div>
+                <div id="res-concept" class="analysis-val">-</div>
+              </div>
+              
+              <div class="analysis-item">
+                <div class="analysis-label">추정 오답 원인</div>
+                <div id="res-cause" class="analysis-val">-</div>
+              </div>
+              
+              <div class="analysis-item recommendation">
+                <div class="analysis-label" style="color:#065f46">개인화 추천 학습 가이드</div>
+                <div id="res-recommendation" class="analysis-val" style="color:#065f46; font-weight:500; font-size:0.9rem;">-</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 24px; display:flex; justify-content:flex-end;">
+              <button class="btn btn-primary" onclick="document.querySelector('[data-target=\'view-generate\']').click();">
+                쌍둥이 문제 만들러 가기 ➔
+              </button>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================== -->
+        <!-- VIEW 2: 쌍둥이 문제 생성 -->
+        <!-- ========================================== -->
+        <section id="view-generate" class="view-section hidden">
+          <div class="view-title-row">
+            <h3>쌍둥이 문제 생성</h3>
+            <p>분석된 오답 개념과 동일한 메커니즘을 가진 새로운 맞춤형 쌍둥이 문제를 빌드합니다.</p>
+          </div>
+
+          <!-- 생성 옵션 조절 카드 (분석이 완료된 상태에서 드러남) -->
+          <div id="twin-options-box" class="card hidden">
+            <div class="card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:20px;height:20px;color:var(--secondary)">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+              </svg>
+              쌍둥이 문제 생성 옵션 설정
+            </div>
+
+            <div class="generation-controls">
+              <div class="options-container">
+                <label class="checkbox-label checked" id="lbl-opt-num">
+                  <input type="checkbox" id="opt-num" checked> 숫자 변환
+                </label>
+                <label class="checkbox-label" id="lbl-opt-cond">
+                  <input type="checkbox" id="opt-cond"> 조건 변경
+                </label>
+                <label class="checkbox-label" id="lbl-opt-sentence">
+                  <input type="checkbox" id="opt-sentence"> 문장 패턴 교체
+                </label>
+                <label class="checkbox-label" id="lbl-opt-diff-up">
+                  <input type="checkbox" id="opt-diff-up"> 난이도 상향
+                </label>
+                <label class="checkbox-label" id="lbl-opt-diff-down">
+                  <input type="checkbox" id="opt-diff-down"> 난이도 하향
+                </label>
+                <label class="checkbox-label" id="lbl-opt-random">
+                  <input type="checkbox" id="opt-random"> 랜덤 변형 규칙
+                </label>
+              </div>
+
+              <div class="count-selector">
+                <span style="font-size:0.85rem; font-weight:600;">생성 개수:</span>
+                <button type="button" class="count-btn" data-value="1">1</button>
+                <button type="button" class="count-btn active" data-value="3">3</button>
+                <button type="button" class="count-btn" data-value="5">5</button>
+                <button type="button" class="count-btn" data-value="10">10</button>
+              </div>
+            </div>
+
+            <button type="button" id="btn-generate" class="btn btn-primary" style="width: 100%; padding: 14px;">
+              <!-- 번개 아이콘 -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:18px;height:18px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+              </svg>
+              쌍둥이 문제 빌드 시작
+            </button>
+          </div>
+
+          <!-- 분석 전 안내 카드 (기본 노출, 분석 완료시 hidden 처리 제어는 CSS/UI에서 처리) -->
+          <div id="generation-placeholder" class="card" style="text-align:center; padding: 50px 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width:54px;height:54px;color:var(--text-light);margin-bottom:14px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+            </svg>
+            <h4 style="margin-bottom:8px;">대기 상태</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">
+              오답 입력 탭에서 문제를 먼저 분석해 주세요.<br>
+              또는 '저장한 문제' 탭에서 이전 기록의 [쌍둥이 재생성] 버튼을 눌러 불러오실 수 있습니다.
+            </p>
+          </div>
+
+          <!-- 생성 결과 출력 영역 -->
+          <div id="twin-results-container" class="generation-box">
+            <!-- 동적으로 생성 카드 추가됨 -->
+          </div>
+
+          <!-- 최종 저장 행동 박스 -->
+          <div id="save-action-box" class="card hidden" style="border-top: 4px solid var(--success);">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+              <div>
+                <h4 style="color:var(--success)">학습 결과 보관 준비 완료</h4>
+                <p style="color:var(--text-muted); font-size:0.85rem; margin-top:2px;">원본 문제의 분석 기록과 방금 생성된 쌍둥이 문제들이 한 세트로 영구 저장됩니다.</p>
+              </div>
+              <button type="button" id="btn-save-problem" class="btn btn-primary" style="background-color: var(--success);">
+                내 학습 보관함에 최종 저장
+              </button>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================== -->
+        <!-- VIEW 3: 저장한 문제 -->
+        <!-- ========================================== -->
+        <section id="view-saved" class="view-section hidden">
+          <div class="view-title-row">
+            <h3>저장한 문제</h3>
+            <p>지금까지 저장된 개인 수학 오답 뭉치와 쌍둥이 문제 기록을 검색하고 관리합니다.</p>
+          </div>
+          
+          <div class="search-row">
+            <div class="search-input-wrapper">
+              <!-- 돋보기 아이콘 -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" />
+              </svg>
+              <input type="text" id="search-query" class="input-control search-input" placeholder="단원명, 문제 텍스트 또는 개념 키워드로 검색...">
+            </div>
+          </div>
+          
+          <div id="saved-problems-list" class="problems-list">
+            <!-- JS로 동적 로드 -->
+          </div>
+        </section>
+        
+        <!-- ========================================== -->
+        <!-- VIEW 4: 학습 통계 -->
+        <!-- ========================================== -->
+        <section id="view-stats" class="view-section hidden">
+          <div class="view-title-row">
+            <h3>학습 통계</h3>
+            <p>로컬 스토리지 누적 데이터를 기반으로 나의 수학 약점 단원과 실수의 주 원인을 분석합니다.</p>
+          </div>
+          
+          <!-- 카드 요약 통계 -->
+          <div class="stats-summary-grid">
+            <div class="stats-card">
+              <div id="stat-total-entered" class="stats-card-val">0개</div>
+              <div class="stats-card-label">총 오답 입력 수</div>
+            </div>
+            
+            <div class="stats-card">
+              <div id="stat-total-generated" class="stats-card-val">0개</div>
+              <div class="stats-card-label">총 쌍둥이 생성 수</div>
+            </div>
+            
+            <div class="stats-card">
+              <div id="stat-most-concept" class="stats-card-val" style="font-size:1.15rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">기록 없음</div>
+              <div class="stats-card-label">가장 약한 단원 (최다 오답)</div>
+            </div>
+            
+            <div class="stats-card">
+              <div id="stat-last-active" class="stats-card-val" style="font-size:1.4rem;">기록 없음</div>
+              <div class="stats-card-label">최근 학습 수행일</div>
+            </div>
+          </div>
+
+          <!-- 차트 행 -->
+          <div class="charts-row">
+            
+            <!-- 막대 차트: 난이도 분포 -->
+            <div class="chart-card-wrapper">
+              <div class="chart-title">오답 난이도별 분포 현황</div>
+              <div class="canvas-container">
+                <canvas id="bar-chart"></canvas>
+              </div>
+            </div>
+            
+            <!-- 원형 차트: 오답 원인 통계 -->
+            <div class="chart-card-wrapper">
+              <div class="chart-title">핵심 오답 유발 원인 (Donut)</div>
+              <div style="display:flex; flex-direction:column; gap:16px;">
+                <div class="canvas-container" style="min-height:200px;">
+                  <canvas id="pie-chart"></canvas>
+                </div>
+                <div id="pie-legend-container" style="padding-top:10px; border-top: 1px solid var(--border);">
+                  <!-- JS로 레전드 동적 삽입 -->
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+        
+        <!-- ========================================== -->
+        <!-- VIEW 5: 설정 -->
+        <!-- ========================================== -->
+        <section id="view-settings" class="view-section hidden">
+          <div class="view-title-row">
+            <h3>설정</h3>
+            <p>프로필 정보와 기본 수학 난이도 목표를 제어합니다.</p>
+          </div>
+          
+          <div class="settings-grid">
+            <div class="card">
+              <div class="card-title">기본 프로필 관리</div>
+              
+              <form id="settings-form" onsubmit="event.preventDefault();">
+                <div class="form-grid" style="grid-template-columns: 1fr; gap:18px;">
+                  <div class="form-group">
+                    <label for="setting-name">학생 이름</label>
+                    <input type="text" id="setting-name" class="input-control" value="학생">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="setting-schoolLevel">기본 학교 레벨</label>
+                    <select id="setting-schoolLevel" class="input-control">
+                      <option value="초등수학">초등수학</option>
+                      <option value="중등수학" selected>중등수학</option>
+                      <option value="고등수학">고등수학</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="setting-grade">기본 학년</label>
+                    <select id="setting-grade" class="input-control">
+                      <option value="1">1학년</option>
+                      <option value="2">2학년</option>
+                      <option value="3">3학년</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="setting-dailyGoal">하루 목표 오답 분석량</label>
+                    <select id="setting-dailyGoal" class="input-control">
+                      <option value="3">3문제 해결</option>
+                      <option value="5">5문제 해결</option>
+                      <option value="10">10문제 해결</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div style="margin-top: 24px;">
+                  <button type="button" id="btn-save-settings" class="btn btn-primary">설정 저장하기</button>
+                </div>
+              </form>
+            </div>
+            
+            <div class="settings-info-box">
+              <h4>오답 포털 가이드</h4>
+              <p>본 포털의 모든 기록은 브라우저의 <strong>LocalStorage</strong>에 보안 암호화 없이 순수 텍스트 형식으로 안전하게 로컬 저장됩니다.</p>
+              <p>쿠키를 비우거나 브라우저 캐시를 지우면 데이터가 소실될 수 있으니 주의해 주세요.</p>
+              <p style="margin-top: 14px;"><strong>향후 추가 지원사항:</strong></p>
+              <ul style="padding-left:16px; font-size:0.8rem; color:var(--text-muted); display:flex; flex-direction:column; gap:4px;">
+                <li>ChatGPT / Gemini Open API 연동</li>
+                <li>오답 문제 필기체 인식 (OCR)</li>
+                <li>PDF 변형 문제집 내보내기</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        
+      </main>
+    </div>
+  </div>
+
+  <!-- 수정 다이얼로그 모달 -->
+  <div id="modal-overlay" class="modal-overlay" onclick="if(event.target === this) UIManager.closeEditModal()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>오답 기록 수정</h3>
+        <button class="modal-close-btn" onclick="UIManager.closeEditModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:20px;height:20px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div id="modal-body-content" class="modal-body">
+        <!-- JS로 동적 로드 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 스크립트 모듈 로드 순서 (의존성 유지) -->
+  <script src="js/storage.js"></script>
+  <script src="js/analyzer.js"></script>
+  <script src="js/twinGenerator.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
